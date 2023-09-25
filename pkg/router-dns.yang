@@ -1,0 +1,40 @@
+module router-dns {
+    namespace "http://example.com/router-dns";
+    prefix r;
+
+    import ietf-inet-types {
+        prefix inet;
+    }
+
+    container dns {
+        list search {
+            key "name";
+            max-elements "3";
+            leaf name {
+                type int32;
+            }
+            leaf domain {
+                type inet:host;
+            }
+        }
+        list server {
+            key "address";
+            max-elements "3";
+            ordered-by user;
+            leaf address {
+                type inet:ip-address;
+            }
+        }
+        container options {
+            leaf ndots {
+                type uint8;
+            }
+            leaf timeout {
+                type uint8;
+            }
+            leaf attempts {
+                type uint8;
+            }
+        }
+    }
+}
