@@ -1,14 +1,37 @@
 all:
-    mkdir ${WORKING_DIR}
-    ncs-setup --dest ${WORKING_DIR}
-    cp pkg/Makefile ${WORKING_DIR}/Makefile
-    cp pkg/ncs_init.xml ${WORKING_DIR}/ncs-cdb/ncs_init.xml
-    # cp -r init/router.in nso-lab-rundir/packages/router
+	$(MAKE) check-repo-env
+	$(MAKE) check-ncs-env
+	mkdir ${NCS_RUN_DIR}
+	$(MAKE) netsim
+	$(MAKE) setup
+	$(MAKE) start
+
+netsim:
+	ncs-netsim --dir ${NCS_RUN_DIR}/netsim create-network ${NCS_DIR}/packages/neds/cisco-ios-cli-3.8 3 ex
+
+setup:
+	ncs-setup --dest ${NCS_RUN_DIR} --netsim-dir ${NCS_RUN_DIR}/netsim
+	ncs-make-package --service-skeleton python dns-config --dest ${NCS_RUN_DIR}/packages/dns-config
+	cp ${REPO_DIR}/dns-config.yang ${NCS_RUN_DIR}/packages/dns-config/src/yang/
+
+start:
+	ncs-netsim -a start --dir ${NCS_RUN_DIR}/netsim
+	cd ${NCS_RUN_DIR} && ncs --with-package-reload && cd -
 
 clean:
-    # echo ${WORKING_DIR}
-    -rm -rf ${WORKING_DIR}
+	$(MAKE) stop
+	-rm -rf ${NCS_RUN_DIR}
 
 stop:
-    -ncs-netsim --dir ${WORKING_DIR}/netsim -a stop
-    -ncs --stop
+	-ncs-netsim --dir ${NCS_RUN_DIR}/netsim -a stop
+	-ncs --stop
+
+check-repo-env:
+ifndef REPO_DIR
+	$(error environment variable REPO_DIR is undefined. Source it. See example in README)
+endif
+
+check-ncs-env:
+ifndef NCS_RUN_DIR
+	$(error environment variable NCS_RUN_DIR is undefined. Source it. See example in README)
+endif
