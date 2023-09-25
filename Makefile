@@ -1,5 +1,6 @@
 all:
 	$(MAKE) check-repo-env
+	$(MAKE) check-ncs-run-env
 	$(MAKE) check-ncs-env
 	mkdir ${NCS_RUN_DIR}
 	$(MAKE) netsim
@@ -31,7 +32,12 @@ ifndef REPO_DIR
 	$(error environment variable REPO_DIR is undefined. Source it. See example in README)
 endif
 
-check-ncs-env:
+check-ncs-run-env:
 ifndef NCS_RUN_DIR
 	$(error environment variable NCS_RUN_DIR is undefined. Source it. See example in README)
+endif
+
+check-ncs-env:
+ifndef NCS_DIR
+	$(error environment variable NCS_DIR is undefined. Source it. See example in README)
 endif
