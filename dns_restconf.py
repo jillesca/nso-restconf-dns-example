@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import json
+# import json
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -30,7 +30,7 @@ class dns_restconf:
         except Exception as err:
             print(f"An unexpected error happened: {err=}")
 
-    def post_data(self, endpoint: str, data: dict = []) -> str:
+    def post_data(self, endpoint: str, data: dict = None) -> str:
         try:
             response = self.session.post(BASE_URL + endpoint, json=data)
             response.raise_for_status()
@@ -38,7 +38,7 @@ class dns_restconf:
         except Exception as err:
             print(f"An unexpected error happened: {err=}")
 
-    def patch_data(self, endpoint: str, data: dict = []) -> str:
+    def patch_data(self, endpoint: str, data: dict = None) -> str:
         try:
             response = self.session.patch(BASE_URL + endpoint, json=data)
             response.raise_for_status()
@@ -128,7 +128,6 @@ class dns_restconf:
 
 def main() -> None:
     restconf = dns_restconf()
-    # fetch_data()
     restconf.list_devices_in_nso()
     restconf.nso_sync_from()
     restconf.check_dns_config()
