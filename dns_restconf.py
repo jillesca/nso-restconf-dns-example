@@ -130,7 +130,6 @@ def main() -> None:
     restconf = dns_restconf()
     restconf.list_devices_in_nso()
     restconf.nso_sync_from()
-    restconf.check_dns_config()
     restconf.update_dns_server()
     restconf.list_rollback_files()
     restconf.apply_rollback_file()

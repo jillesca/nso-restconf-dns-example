@@ -24,6 +24,9 @@ clean:
 	-rm -rf ${NCS_RUN_DIR}
 
 stop:
+	$(MAKE) check-repo-env
+	$(MAKE) check-ncs-run-env
+	$(MAKE) check-ncs-env
 	-ncs-netsim --dir ${NCS_RUN_DIR}/netsim -a stop
 	-ncs --stop
 
