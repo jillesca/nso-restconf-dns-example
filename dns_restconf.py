@@ -46,17 +46,17 @@ class dns_restconf:
         except Exception as err:
             print(f"An unexpected error happened: {err=}")
 
-    def list_devices_in_nso(self) -> str:
+    def list_devices_in_nso(self) -> None:
         endpoint = "/data?fields=tailf-ncs:devices/device(name;address)"
         response = self.fetch_data(endpoint)
         print(response)
 
-    def nso_sync_from(self) -> str:
+    def nso_sync_from(self) -> None:
         endpoint = "/operations/tailf-ncs:devices/sync-from"
         response = self.post_data(endpoint)
         print(response)
 
-    def update_dns_server(self) -> str:
+    def update_dns_server(self) -> None:
         data = {
             "data": {
                 "tailf-ncs:devices": {
@@ -77,12 +77,12 @@ class dns_restconf:
         response = self.patch_data(endpoint, data)
         print(response)
 
-    def list_rollback_files(self) -> str:
+    def list_rollback_files(self) -> None:
         endpoint = "/data/tailf-rollback:rollback-files"
         response = self.fetch_data(endpoint)
         print(response)
 
-    def apply_rollback_file(self) -> str:
+    def apply_rollback_file(self) -> None:
         data = {"input": {"id": "0"}}
         endpoint = "/data/tailf-rollback:rollback-files/apply-rollback-file"
         response = self.post_data(endpoint, data)
@@ -106,12 +106,12 @@ class dns_restconf:
     #     t.apply_params(True, t.get_params())
     #     print("Done!")
 
-    def check_dns_config(self) -> str:
+    def check_dns_config(self) -> None:
         endpoint = "/data/tailf-ncs:devices/device=ex1/config/router:sys/dns/server"
-        response = self.session.get(BASE_URL + endpoint)
+        response = self.fetch_data(endpoint)
         print(response)
 
-    def dry_run_dns_config(self) -> str:
+    def dry_run_dns_config(self) -> None:
         data = {"router:server": [{"address": "192.0.2.2"}]}
         endpoint = (
             "/data/tailf-ncs:devices/device=ex1/config/router:sys/dns/server?dry-run"
@@ -119,7 +119,7 @@ class dns_restconf:
         response = self.patch_data(endpoint, data)
         print(response)
 
-    def commit_dns_config(self) -> str:
+    def commit_dns_config(self) -> None:
         data = {"router:server": [{"address": "192.0.2.2"}]}
         endpoint = "/data/tailf-ncs:devices/device=ex1/config/router:sys/dns/server"
         response = self.patch_data(endpoint, data)
