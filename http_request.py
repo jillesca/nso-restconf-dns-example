@@ -16,26 +16,26 @@ class session_handler:
         session.verify = False
         self.session = session
 
-    def get(self, endpoint: str) -> str:
+    def get(self, endpoint: str) -> tuple[str, str]:
         try:
             response = self.session.get(self._base_url + endpoint)
             response.raise_for_status()
-            return response.text
+            return (response.text, response.status_code)
         except Exception as err:
-            print(f"An unexpected error happened: {err=}")
+            print(f"{err=}")
 
-    def post(self, endpoint: str, data: dict = None) -> str:
+    def post(self, endpoint: str, data: dict = None) -> tuple[str, str]:
         try:
             response = self.session.post(self._base_url + endpoint, json=data)
             response.raise_for_status()
-            return response.status_code
+            return (response.text, response.status_code)
         except Exception as err:
-            print(f"An unexpected error happened: {err=}")
+            print(f"{err=}")
 
-    def patch(self, endpoint: str, data: dict = None) -> str:
+    def patch(self, endpoint: str, data: dict = None) -> tuple[str, str]:
         try:
             response = self.session.patch(self._base_url + endpoint, json=data)
             response.raise_for_status()
-            return response.status_code
+            return (response.text, response.status_code)
         except Exception as err:
-            print(f"An unexpected error happened: {err=}")
+            print(f"{err=}")
