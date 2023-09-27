@@ -14,7 +14,7 @@ class dns_handler:
     def list_devices_in_nso(self) -> None:
         endpoint = "/data?fields=tailf-ncs:devices/device(name;address)"
         response, status_code = self.http_session.get(endpoint)
-        print_bold(f"{'#'*10} Devices present in NSO: {'#'*10}")
+        print_header(f"{'#'*10} Devices present in NSO: {'#'*10}")
         print(f"{response}\nSTATUS_CODE: {status_code}")
 
     def nso_sync_from(self) -> None:
