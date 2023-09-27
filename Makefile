@@ -14,6 +14,7 @@ setup:
 	ncs-setup --dest ${NCS_RUN_DIR} --netsim-dir ${NCS_RUN_DIR}/netsim
 	ncs-make-package --service-skeleton python dns-config --dest ${NCS_RUN_DIR}/packages/dns-config
 	cp ${REPO_DIR}/dns-config.yang ${NCS_RUN_DIR}/packages/dns-config/src/yang/
+	$(MAKE) -C ${NCS_RUN_DIR}/packages/dns-config/src all 
 
 start:
 	ncs-netsim -a start --dir ${NCS_RUN_DIR}/netsim
@@ -32,15 +33,15 @@ stop:
 
 check-repo-env:
 ifndef REPO_DIR
-	$(error environment variable REPO_DIR is undefined. Source it. See example in README)
+	$(Error environment variable REPO_DIR is undefined. Source it. See example in README)
 endif
 
 check-ncs-run-env:
 ifndef NCS_RUN_DIR
-	$(error environment variable NCS_RUN_DIR is undefined. Source it. See example in README)
+	$(Error environment variable NCS_RUN_DIR is undefined. Source it. See example in README)
 endif
 
 check-ncs-env:
 ifndef NCS_DIR
-	$(error environment variable NCS_DIR is undefined. Source it. See example in README)
+	$(Error environment variable NCS_DIR is undefined. Source it. See example in README)
 endif

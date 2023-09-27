@@ -8,7 +8,7 @@ from print_terminal import print_ok_green, print_ok_blue, print_bold, print_head
 
 
 class dns_handler:
-    def __init__(self, http_session: requests.session) -> None:
+    def __init__(self, http_session: requests.session):
         self.http_session = http_session
 
     def list_devices_in_nso(self) -> None:
