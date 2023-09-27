@@ -1,59 +1,23 @@
 #!/usr/bin/env python3
 
+# import ncs
 # import json
 import requests
-from requests.auth import HTTPBasicAuth
-
-# import ncs
-
-USERNAME = "admin"
-PASSWORD = "admin"
-BASE_URL = "http://localhost:8080/restconf"
+from http_request import session_handler
 
 
-class dns_restconf:
-    def __init__(self):
-        self.create_restconf_session()
-
-    def create_restconf_session(self):
-        session = requests.session()
-        session.auth = HTTPBasicAuth(USERNAME, PASSWORD)
-        session.headers.update({"Content-Type": "application/yang-data+json"})
-        session.verify = False
-        self.session = session
-
-    def fetch_data(self, endpoint: str) -> str:
-        try:
-            response = self.session.get(BASE_URL + endpoint)
-            response.raise_for_status()
-            return response.text
-        except Exception as err:
-            print(f"An unexpected error happened: {err=}")
-
-    def post_data(self, endpoint: str, data: dict = None) -> str:
-        try:
-            response = self.session.post(BASE_URL + endpoint, json=data)
-            response.raise_for_status()
-            return response.status_code
-        except Exception as err:
-            print(f"An unexpected error happened: {err=}")
-
-    def patch_data(self, endpoint: str, data: dict = None) -> str:
-        try:
-            response = self.session.patch(BASE_URL + endpoint, json=data)
-            response.raise_for_status()
-            return response.status_code
-        except Exception as err:
-            print(f"An unexpected error happened: {err=}")
+class dns_handler:
+    def __init__(self, http_session: requests.session) -> None:
+        self.http_session = http_session
 
     def list_devices_in_nso(self) -> None:
         endpoint = "/data?fields=tailf-ncs:devices/device(name;address)"
-        response = self.fetch_data(endpoint)
+        response = self.http_session.get(endpoint)
         print(response)
 
     def nso_sync_from(self) -> None:
         endpoint = "/operations/tailf-ncs:devices/sync-from"
-        response = self.post_data(endpoint)
+        response = self.http_session.post(endpoint)
         print(response)
 
     def update_dns_server(self) -> None:
@@ -74,18 +38,18 @@ class dns_restconf:
             }
         }
         endpoint = "/data"
-        response = self.patch_data(endpoint, data)
+        response = self.http_session.patch(endpoint, data)
         print(response)
 
     def list_rollback_files(self) -> None:
         endpoint = "/data/tailf-rollback:rollback-files"
-        response = self.fetch_data(endpoint)
+        response = self.http_session.get(endpoint)
         print(response)
 
     def apply_rollback_file(self) -> None:
         data = {"input": {"id": "0"}}
         endpoint = "/data/tailf-rollback:rollback-files/apply-rollback-file"
-        response = self.post_data(endpoint, data)
+        response = self.http_session.post(endpoint, data)
         print(response)
 
     # with open("packages/router/src/yang/router-dns.yang", "r", encoding="utf-8") as f:
@@ -108,7 +72,7 @@ class dns_restconf:
 
     def check_dns_config(self) -> None:
         endpoint = "/data/tailf-ncs:devices/device=ex1/config/router:sys/dns/server"
-        response = self.fetch_data(endpoint)
+        response = self.http_session.get(endpoint)
         print(response)
 
     def dry_run_dns_config(self) -> None:
@@ -116,18 +80,25 @@ class dns_restconf:
         endpoint = (
             "/data/tailf-ncs:devices/device=ex1/config/router:sys/dns/server?dry-run"
         )
-        response = self.patch_data(endpoint, data)
+        response = self.http_session.patch(endpoint, data)
         print(response)
 
     def commit_dns_config(self) -> None:
         data = {"router:server": [{"address": "192.0.2.2"}]}
         endpoint = "/data/tailf-ncs:devices/device=ex1/config/router:sys/dns/server"
-        response = self.patch_data(endpoint, data)
+        response = self.http_session.patch(endpoint, data)
         print(response)
 
 
 def main() -> None:
-    restconf = dns_restconf()
+    USERNAME = "admin"
+    PASSWORD = "admin"
+    BASE_URL = "http://localhost:8080/restconf"
+
+    http_session = session_handler(
+        username=USERNAME, password=PASSWORD, base_url=BASE_URL
+    )
+    restconf = dns_handler(http_session)
     restconf.list_devices_in_nso()
     restconf.nso_sync_from()
     restconf.update_dns_server()

@@ -1,4 +1,4 @@
-all:
+build:
 	$(MAKE) check-repo-env
 	$(MAKE) check-ncs-run-env
 	$(MAKE) check-ncs-env

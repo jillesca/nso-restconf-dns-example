@@ -10,7 +10,7 @@ export REPO_DIR=~/src/nso-restconf-dns-example
 
 source $NCS_DIR/ncsrc
 
-make clean all
+make clean build
 
 pip install -r $REPO_DIR/requirements.txt
 ```
