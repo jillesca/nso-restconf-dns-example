@@ -15,8 +15,8 @@ def print_ok_blue(msg: str) -> None:
     print(f"\n{OKBLUE}{msg}{ENDC}")
 
 
-def print_bold(msg: str) -> None:
-    print(f"\n{BOLD}{msg}{ENDC}")
+def print_header(msg: str) -> None:
+    print(f"\n{'#'*10} {BOLD}{msg}{ENDC} {'#'*10}")
 
 
 def print_purple(msg: str) -> None:
