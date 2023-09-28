@@ -24,10 +24,10 @@ module dns-config {
       }
     }
 
-    list server {
+    list dns-server {
       key "address";
       leaf address {
-        tailf:info "DNS server IP address";
+        tailf:info "IP address of DNS server";
         type inet:ip-address;
       }
     }

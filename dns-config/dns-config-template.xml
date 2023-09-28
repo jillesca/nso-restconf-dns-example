@@ -6,9 +6,9 @@
       <config>
         <ip xmlns="urn:ios">
           <name-server>
-            <?foreach {/server}?>
+            <?foreach {dns-server}?>
             <name-server-list>
-              <address>{/server/address}</address>
+              <address>{address}</address>
             </name-server-list>
             <?end?>
           </name-server>
