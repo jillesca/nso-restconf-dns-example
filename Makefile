@@ -23,7 +23,7 @@ configure:
 	cp ${REPO_DIR}/dns-config/dns-config-template.xml ${NCS_RUN_DIR}/packages/dns-config/templates/
 
 compile:
-	$(MAKE) -C ${NCS_RUN_DIR}/packages/dns-config/src all 
+	$(MAKE) -C ${NCS_RUN_DIR}/packages/dns-config/src clean all 
 
 start:
 	ncs-netsim -a start --dir ${NCS_RUN_DIR}/netsim
