@@ -1,8 +1,10 @@
+import json
+
 PURPLE = "\033[95m"
 OKBLUE = "\033[94m"
 OKGREEN = "\033[92m"
-ENDC = "\033[0m"
 BOLD = "\033[1m"
+ENDC = "\033[0m"
 
 
 def print_ok_green(msg: str) -> None:
@@ -19,3 +21,8 @@ def print_bold(msg: str) -> None:
 
 def print_purple(msg: str) -> None:
     print(f"\n{PURPLE}{msg}{ENDC}")
+
+
+def print_json(msg: str) -> None:
+    if msg:
+        print(json.dumps(msg, indent=2))

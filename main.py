@@ -13,7 +13,7 @@ def main() -> None:
     restconf = dns_handler(http_session)
     restconf.list_devices_in_nso()
     restconf.nso_sync_from()
-    # restconf.update_dns_server()
+    restconf.add_dns_server(device="ex1", dns_server="1.1.1.1")
     # restconf.list_rollback_files()
     # restconf.apply_rollback_file()
     # restconf.check_dns_config()

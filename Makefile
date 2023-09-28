@@ -28,7 +28,7 @@ compile:
 start:
 	ncs-netsim -a start --dir ${NCS_RUN_DIR}/netsim
 	cd ${NCS_RUN_DIR} && ncs --with-package-reload && cd -
-	# echo devices sync-from | ncs_cli -Cu admin
+	echo devices sync-from | ncs_cli -Cu admin
 
 clean:
 	$(MAKE) stop

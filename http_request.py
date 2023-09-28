@@ -2,6 +2,13 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 
+class Response:
+    def __init__(self, text: str, status_code: int, json: dict):
+        self.text = text
+        self.status_code = status_code
+        self.json = json
+
+
 class session_handler:
     def __init__(self, username: str, password: str, base_url: str):
         self._username = username
@@ -16,26 +23,26 @@ class session_handler:
         session.verify = False
         self.session = session
 
-    def get(self, endpoint: str) -> tuple[str, str]:
+    def _handle_204(self, response: requests.Response) -> tuple[str, str]:
+        if response.status_code == 204:
+            return ("Empty body, good for '204 No Content'", "No Content Response")
+        return (response.text, response.json())
+
+    def _send_request(self, method: str, path: str, data: dict = None) -> Response:
         try:
-            response = self.session.get(self._base_url + endpoint)
+            url = self._base_url + path
+            response = getattr(self.session, method)(url, json=data)
             response.raise_for_status()
-            return (response.text, response.status_code)
+            text, json = self._handle_204(response)
+            return Response(text, response.status_code, json)
         except Exception as err:
             print(f"{err=}")
 
-    def post(self, endpoint: str, data: dict = None) -> tuple[str, str]:
-        try:
-            response = self.session.post(self._base_url + endpoint, json=data)
-            response.raise_for_status()
-            return (response.text, response.status_code)
-        except Exception as err:
-            print(f"{err=}")
+    def get(self, path: str) -> Response:
+        return self._send_request("get", path)
 
-    def patch(self, endpoint: str, data: dict = None) -> tuple[str, str]:
-        try:
-            response = self.session.patch(self._base_url + endpoint, json=data)
-            response.raise_for_status()
-            return (response.text, response.status_code)
-        except Exception as err:
-            print(f"{err=}")
+    def post(self, path: str, data: dict = None) -> Response:
+        return self._send_request("post", path, data)
+
+    def patch(self, path: str, data: dict = None) -> Response:
+        return self._send_request("patch", path, data)
