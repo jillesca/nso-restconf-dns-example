@@ -2,9 +2,12 @@ build:
 	$(MAKE) check-repo-env
 	$(MAKE) check-ncs-run-env
 	$(MAKE) check-ncs-env
+	$(MAKE) clean
 	mkdir ${NCS_RUN_DIR}
 	$(MAKE) netsim
 	$(MAKE) setup
+	$(MAKE) configure
+	$(MAKE) compile
 	$(MAKE) start
 
 netsim:
@@ -12,13 +15,20 @@ netsim:
 
 setup:
 	ncs-setup --dest ${NCS_RUN_DIR} --netsim-dir ${NCS_RUN_DIR}/netsim
-	ncs-make-package --service-skeleton python dns-config --dest ${NCS_RUN_DIR}/packages/dns-config
-	cp ${REPO_DIR}/dns-config.yang ${NCS_RUN_DIR}/packages/dns-config/src/yang/
+	ncs-make-package --service-skeleton template dns-config --dest ${NCS_RUN_DIR}/packages/dns-config
+
+configure:
+	cp ${REPO_DIR}/dns-config/Makefile ${NCS_RUN_DIR}/packages/dns-config/src/
+	cp ${REPO_DIR}/dns-config/dns-config.yang ${NCS_RUN_DIR}/packages/dns-config/src/yang/
+	cp ${REPO_DIR}/dns-config/dns-config-template.xml ${NCS_RUN_DIR}/packages/dns-config/templates/
+
+compile:
 	$(MAKE) -C ${NCS_RUN_DIR}/packages/dns-config/src all 
 
 start:
 	ncs-netsim -a start --dir ${NCS_RUN_DIR}/netsim
 	cd ${NCS_RUN_DIR} && ncs --with-package-reload && cd -
+	echo devices sync-from | ncs_cli -Cu admin
 
 clean:
 	$(MAKE) stop

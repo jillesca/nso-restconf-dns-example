@@ -1,0 +1,36 @@
+module dns-config {
+  namespace "http://com/example/dnsconfig";
+  prefix dns-config;
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import tailf-ncs {
+    prefix ncs;
+  }
+  import tailf-common {
+    prefix tailf;
+  }
+
+  list dns-config {
+    key device;
+
+    uses ncs:service-data;
+    ncs:servicepoint "dns-config";
+
+    leaf device {
+      type leafref {
+        path "/ncs:devices/ncs:device/ncs:name";
+      }
+    }
+
+    list server {
+      key "address";
+      leaf address {
+        tailf:info "DNS server IP address";
+        type inet:ip-address;
+      }
+    }
+    
+  }
+}
