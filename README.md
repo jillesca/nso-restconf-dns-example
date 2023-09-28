@@ -41,4 +41,34 @@ python main.py
 make clean
 ```
 
+---
+
+### Addendum
+
+#### Test template manually without python
+
+Testing manually on NSO
+
+```bash
+devices sync-from
+config
+dns-config ex0 dns-server 1.1.1.1
+dns-config ex0 dns-server 2.2.2.2
+dns-config ex1 dns-server 1.1.1.1
+dns-config ex2 dns-server 5.5.5.5
+```
+
+See what NSO will send to the devices
+
+```bash
+commit dry-run
+commit and-quit
+```
+
+Verify config was applied on the devices
+
+```bash
+show running-config devices device * config ip name-server
+```
+
 <!-- ncs_cmd -dd -c 'maction "/packages/reload"' -->
