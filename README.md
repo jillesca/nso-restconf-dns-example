@@ -20,7 +20,7 @@ source $NCS_DIR/ncsrc
 Build the environment
 
 ```bash
-make build
+make -C $REPO_DIR build
 ```
 
 Install python dependencies
@@ -32,13 +32,13 @@ pip install -r $REPO_DIR/requirements.txt
 ### Run example
 
 ```bash
-python main.py
+python $REPO_DIR/main.py
 ```
 
 ### Remove example
 
 ```bash
-make clean
+make -C $REPO_DIR clean
 ```
 
 ---
@@ -68,5 +68,3 @@ Verify config was applied on the devices
 ```bash
 show running-config devices device * config ip name-server
 ```
-
-<!-- ncs_cmd -dd -c 'maction "/packages/reload"' -->

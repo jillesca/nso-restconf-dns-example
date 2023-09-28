@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 # import ncs
-# import json
 import requests
 from print_terminal import (
     print_ok_green,
@@ -12,7 +11,7 @@ from print_terminal import (
 )
 
 
-class dns_handler:
+class Dns_handler:
     def __init__(self, http_session: requests.session):
         self.http_session = http_session
 

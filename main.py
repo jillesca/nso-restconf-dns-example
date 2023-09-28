@@ -1,5 +1,5 @@
-from http_request import session_handler
-from dns_restconf import dns_handler
+from http_request import Session_handler
+from dns_restconf import Dns_handler
 
 USERNAME = "admin"
 PASSWORD = "admin"
@@ -7,10 +7,10 @@ BASE_URL = "http://localhost:8080/restconf"
 
 
 def main() -> None:
-    http_session = session_handler(
+    http_session = Session_handler(
         username=USERNAME, password=PASSWORD, base_url=BASE_URL
     )
-    restconf = dns_handler(http_session)
+    restconf = Dns_handler(http_session)
     restconf.list_devices_in_nso()
     restconf.nso_sync_from()
     restconf.add_dns_server(device="ex1", dns_server="1.1.1.1")

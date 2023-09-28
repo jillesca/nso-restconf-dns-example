@@ -9,7 +9,7 @@ class Response:
         self.json = json
 
 
-class session_handler:
+class Session_handler:
     def __init__(self, username: str, password: str, base_url: str):
         self._username = username
         self._password = password
