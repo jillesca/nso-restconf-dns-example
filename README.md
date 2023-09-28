@@ -1,8 +1,8 @@
-# nso-restconf-dns-example
+# NSO Restconf - DNS Example
 
 Simple DNS example showing how to interact with NSO using Restconf APIs.
 
-### Setup the example
+### Setup example
 
 Set environment variables required
 
@@ -29,13 +29,13 @@ Install python dependencies
 pip install -r $REPO_DIR/requirements.txt
 ```
 
-### Run the example
+### Run example
 
 ```bash
 python main.py
 ```
 
-### Remove the example
+### Remove example
 
 ```bash
 make clean
@@ -46,8 +46,6 @@ make clean
 ### Addendum
 
 #### Test template manually without python
-
-Testing manually on NSO
 
 ```bash
 devices sync-from
