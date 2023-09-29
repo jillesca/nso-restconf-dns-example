@@ -12,8 +12,10 @@ class Dns_handler:
 
         print_results(
             {
-                "header": "list_devices_in_nso results:",
+                "header": "list_devices_in_nso",
                 "body": response.text,
+                "path": path,
+                "method": "GET",
                 "code": response.status_code,
             }
         )
@@ -24,8 +26,10 @@ class Dns_handler:
 
         print_results(
             {
-                "header": "nso_sync_from results:",
+                "header": "nso_sync_from",
                 "body": response.text,
+                "path": path,
+                "method": "post",
                 "code": response.status_code,
             }
         )
@@ -50,9 +54,12 @@ class Dns_handler:
 
         print_results(
             {
-                "header": "add_dns_server results:",
+                "header": "add_dns_server",
+                "data": data,
                 "body": f"Added DNS server {dns_server} on {device}",
                 "json": response.json,
+                "method": "patch",
+                "path": path,
                 "code": response.status_code,
             }
         )
@@ -63,8 +70,10 @@ class Dns_handler:
 
         print_results(
             {
-                "header": "list_rollback_files results:",
+                "header": "list_rollback_files",
                 "json": response.json,
+                "path": path,
+                "method": "get",
                 "code": response.status_code,
             }
         )
@@ -76,9 +85,12 @@ class Dns_handler:
 
         print_results(
             {
-                "header": "apply_rollback_file results:",
+                "header": "apply_rollback_file",
+                "data": data,
                 "body": f"Rolled back ID: {rollback_id}",
                 "json": response.json,
+                "path": path,
+                "method": "post",
                 "code": response.status_code,
             }
         )
@@ -94,8 +106,10 @@ class Dns_handler:
 
         print_results(
             {
-                "header": "check_dns_config results:",
+                "header": "check_dns_config",
                 "json": response.json,
+                "path": path,
+                "method": "get",
                 "code": response.status_code,
             }
         )

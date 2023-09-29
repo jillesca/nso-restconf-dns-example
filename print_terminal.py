@@ -9,27 +9,38 @@ ENDC = "\033[0m"
 
 def print_results(data: dict) -> None:
     print_header(data.get("header", ""))
-    print_blue(data.get("body", ""))
-    print_json(data.get("json", ""))
-    print_purple(f'STATUS CODE: {data.get("code", "")}')
+    print(f'Path: {data.get("path", "")}')
+    if "data" in data:
+        print("Data sent:")
+        print_json(data.get("data", ""))
+    print("\nResponse:")
+    if "body" in data:
+        print_blue(data.get("body", ""))
+    if "json" in data:
+        print_json(data.get("json", ""))
+    print_purple(f'HTTP Method: {data.get("method", "").upper()}')
+    print_purple(f'HTTP Status Code: {data.get("code", "")}')
 
 
 def print_green(msg: str) -> None:
-    print(f"\n{OKGREEN}{msg}{ENDC}")
+    print(f"{OKGREEN}{msg}{ENDC}")
 
 
 def print_blue(msg: str) -> None:
-    print(f"\n{OKBLUE}{msg}{ENDC}")
+    print(f"{OKBLUE}{msg}{ENDC}")
 
 
 def print_header(msg: str) -> None:
-    print(f"\n{'#'*10} {BOLD}{msg}{ENDC} {'#'*10}")
+    print_bold(f"{'#'*15} {msg} {'#'*15}")
+
+
+def print_bold(msg: str) -> None:
+    print(f"{BOLD}{msg}{ENDC}")
 
 
 def print_purple(msg: str) -> None:
-    print(f"\n{PURPLE}{msg}{ENDC}")
+    print(f"{PURPLE}{msg}{ENDC}")
 
 
 def print_json(msg: str) -> None:
-    if msg:
-        print(json.dumps(msg, indent=2))
+    print_green(json.dumps(msg, indent=2))

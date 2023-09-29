@@ -39,7 +39,6 @@ class Session_handler:
             text, json = self._handle_204(response)
             return Response(text, response.status_code, json)
         except Exception as err:
-            print(f"{err=}")
             return Response(text=err, status_code=response.status_code, json=err)
 
     def get(self, path: str) -> Response:
