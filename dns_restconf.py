@@ -32,6 +32,35 @@ class DnsHandler:
             }
         )
 
+    def dry_run_add_dns_server(self, device: str, dns_server: str) -> None:
+        """
+        To get the data payload, add first an example manually,
+        commit it and then use 'display json' as below
+
+        show running-config dns-config ex1 | display json
+        """
+
+        data = {
+            "data": {
+                "dns-config:dns-config": [
+                    {"device": device, "dns-server": [{"address": dns_server}]}
+                ]
+            }
+        }
+        path = "/data?dry-run=native"
+        response = self._http_session.patch(path, data)
+        print_results(
+            {
+                "header": "dry_run_add_dns_server",
+                "data": data,
+                "body": f"Dry run adding DNS server {dns_server} on {device}",
+                "json": response.json,
+                "method": "PATCH",
+                "path": path,
+                "code": response.status_code,
+            }
+        )
+
     def add_dns_server(self, device: str, dns_server: str) -> None:
         """
         To get the data payload, add first an example manually,
@@ -107,9 +136,3 @@ class DnsHandler:
                 "code": response.status_code,
             }
         )
-
-    def dry_run_dns_config(self) -> None:
-        data = {"router:server": [{"address": "192.0.2.2"}]}
-        path = "/data/tailf-ncs:devices/device=ex1/config/router:sys/dns/server?dry-run"
-        response = self._http_session.patch(path, data)
-        print(response)
