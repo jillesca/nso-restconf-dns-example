@@ -4,36 +4,36 @@ This example shows how you can interact with NSO through Restconf APIs using the
 
 ### What the script does
 
-The script updates the DNS server configuration of a netsim device using the yang model and template created for this example. The output of the calls are printed to the terminal.
+The script updates the DNS server configuration of a netsim device using the yang model and template created for this example. The outputs of the calls are printed to the terminal.
 
 It performs the following steps:
 
 - Creates an HTTP session to NSO.
 - Lists the devices present in NSO.
-- Syncs NSO with the devices using `sync-from`.
+- Syncs NSO with the netsim devices using `sync-from`.
 - Adds the DNS server `1.1.1.1` to `ex1`.
-- Dry-run adding a DNS serve `2.2.2.2` to `ex1`.
+- Dry-runs adding a DNS server `2.2.2.2` to `ex1`.
 - Adds the DNS server `2.2.2.2` to `ex1`.
 - Lists the rollback files present in NSO.
 - Applies the latest rollback file (0).
-- Dry-run adding a DNS serve `3.3.3.3` to `ex1`.
+- Dry-runs adding a DNS serve `3.3.3.3` to `ex1`.
 - Adds the DNS server `3.3.3.3` to `ex1`.
 
 During the execution the script will print the results to the terminal, and displays the existing DNS configuration.
 
 You can edit the [main.py](main.py) on the playground to experiment with `ex0` or `ex2` or change the flow of the steps.
 
-This example is based on: `$NCS_DIR/examples.ncs/development-guide/basic-automation/showcase_rc.py`
-
 ### How the example is built
 
-This examples uses NSO in local install mode, along with three `netsim` devices (but only one is really used) that work with the IOS example NED.
+This example uses NSO in local install mode, along with three `netsim` devices (but only ex1 is used) that work with the IOS example NED.
 
 NSO and netsim are configured automatically using a [Makefile](Makefile).
 
-A simple dns-config template is created to play with this example. This template is created, configured and compiled automatically by the same [Makefile](Makefile). You can find the template detais under the [dns-config directory](dns-config/)
+A simple dns-config template is created to experiment with this example. This template is created, configured and compiled automatically by the same [Makefile](Makefile). You can find the template detais under the [dns-config directory](dns-config/)
 
 The only thing you need to do are the steps described below, and then play with the python script.
+
+This example is based on: `$NCS_DIR/examples.ncs/development-guide/basic-automation/showcase_rc.py`
 
 ### Setup environment variables
 
