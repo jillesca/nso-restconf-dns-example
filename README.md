@@ -2,19 +2,7 @@
 
 On this example you will interact with NSO through Restconf APIs using the `requests` python library.
 
-This example is based on `showcase_rc.py`
-
-```bash
-$NCS_DIR/examples.ncs/development-guide/basic-automation/showcase_rc.py
-```
-
-> Tip: do you know that `rc` in the filename of the examples stands for **restconf**?
-
-To find more builtin restconf examples do
-
-```bash
-find $NCS_DIR/examples.ncs/ -type f -name "showcase_rc.py"
-```
+This example is based on: `$NCS_DIR/examples.ncs/development-guide/basic-automation/showcase_rc.py`
 
 ### Install dependencies
 
@@ -24,20 +12,22 @@ pip install -r $REPO_DIR/requirements.txt
 
 ### Setup example
 
-Set environment variables required
+Set environment variables required.
+
+> if you run this example outside of the playground, make sure `$NCS_DIR` points to the NSO directory. Adjust `NCS_RUN_DIR` and `$REPO_DIR` to your environment.
 
 ```bash
 export NCS_RUN_DIR=~/nso-lab-rundir
 export REPO_DIR=~/src/nso-restconf-dns-example
 ```
 
-Source `ncsrc`
+Source the `ncsrc` file.
 
 ```bash
 source $NCS_DIR/ncsrc
 ```
 
-Build the environment
+Build the environment.
 
 ```bash
 make -C $REPO_DIR build
@@ -81,4 +71,12 @@ Verify config was applied on the devices
 
 ```bash
 show running-config devices device * config ip name-server
+```
+
+### Bonus
+
+To find more restconf examples that come with NSO do:
+
+```bash
+find $NCS_DIR/examples.ncs/ -type f -name "showcase_rc.py"
 ```
