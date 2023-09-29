@@ -7,11 +7,18 @@ BOLD = "\033[1m"
 ENDC = "\033[0m"
 
 
-def print_ok_green(msg: str) -> None:
+def print_results(data: dict) -> None:
+    print_header(data.get("header", ""))
+    print_blue(data.get("body", ""))
+    print_json(data.get("json", ""))
+    print_purple(f'STATUS CODE: {data.get("code", "")}')
+
+
+def print_green(msg: str) -> None:
     print(f"\n{OKGREEN}{msg}{ENDC}")
 
 
-def print_ok_blue(msg: str) -> None:
+def print_blue(msg: str) -> None:
     print(f"\n{OKBLUE}{msg}{ENDC}")
 
 
