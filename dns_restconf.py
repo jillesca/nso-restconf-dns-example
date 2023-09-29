@@ -1,10 +1,10 @@
 from print_terminal import print_results
-from http_request import Session_handler
+from http_request import SessionHandler
 
 
-class Dns_handler:
+class DnsHandler:
     def __init__(self, username: str, password: str, base_url: str):
-        self.http_session = Session_handler(username, password, base_url)
+        self.http_session = SessionHandler(username, password, base_url)
 
     def list_devices_in_nso(self) -> None:
         path = "/data?fields=tailf-ncs:devices/device(name;address)"
@@ -27,7 +27,7 @@ class Dns_handler:
                 "header": "nso_sync_from",
                 "body": response.text,
                 "path": path,
-                "method": "post",
+                "method": "POST",
                 "code": response.status_code,
             }
         )
@@ -55,7 +55,7 @@ class Dns_handler:
                 "data": data,
                 "body": f"Added DNS server {dns_server} on {device}",
                 "json": response.json,
-                "method": "patch",
+                "method": "PATCH",
                 "path": path,
                 "code": response.status_code,
             }
@@ -69,7 +69,7 @@ class Dns_handler:
                 "header": "list_rollback_files",
                 "json": response.json,
                 "path": path,
-                "method": "get",
+                "method": "GET",
                 "code": response.status_code,
             }
         )
@@ -85,7 +85,7 @@ class Dns_handler:
                 "body": f"Rolled back ID: {rollback_id}",
                 "json": response.json,
                 "path": path,
-                "method": "post",
+                "method": "POST",
                 "code": response.status_code,
             }
         )
@@ -103,7 +103,7 @@ class Dns_handler:
                 "header": "check_dns_config",
                 "json": response.json,
                 "path": path,
-                "method": "get",
+                "method": "GET",
                 "code": response.status_code,
             }
         )

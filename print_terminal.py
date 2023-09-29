@@ -31,7 +31,7 @@ def print_blue(msg: str) -> None:
 
 
 def print_header(msg: str) -> None:
-    print_bold(f"{'#'*15} {msg} {'#'*15}")
+    print_bold(f"{'#' * 15} {msg} {'#' * 15}")
 
 
 def print_bold(msg: str) -> None:

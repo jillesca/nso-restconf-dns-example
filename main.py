@@ -1,4 +1,4 @@
-from dns_restconf import Dns_handler
+from dns_restconf import DnsHandler
 
 USERNAME = "admin"
 PASSWORD = "admin"
@@ -6,7 +6,7 @@ BASE_URL = "http://localhost:8080/restconf"
 
 
 def main() -> None:
-    restconf = Dns_handler(USERNAME, PASSWORD, BASE_URL)
+    restconf = DnsHandler(USERNAME, PASSWORD, BASE_URL)
     restconf.list_devices_in_nso()
     restconf.nso_sync_from()
     restconf.add_dns_server(device="ex1", dns_server="1.1.1.1")
