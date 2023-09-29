@@ -1,0 +1,376 @@
+developer:src > python $REPO_DIR/main.py
+############### list_devices_in_nso ###############
+Path: /data?fields=tailf-ncs:devices/device(name;address)
+
+Response:
+{
+  "ietf-restconf:data": {
+    "tailf-ncs:devices": {
+      "device": [
+        {
+          "name": "ex0",
+          "address": "127.0.0.1"
+        },
+        {
+          "name": "ex1",
+          "address": "127.0.0.1"
+        },
+        {
+          "name": "ex2",
+          "address": "127.0.0.1"
+        }
+      ]
+    }
+  }
+}
+
+HTTP Method: GET
+HTTP Status Code: 200
+
+############### nso_sync_from ###############
+Path: /operations/tailf-ncs:devices/sync-from
+
+Response:
+{
+  "tailf-ncs:output": {
+    "sync-result": [
+      {
+        "device": "ex0",
+        "result": true
+      },
+      {
+        "device": "ex1",
+        "result": true
+      },
+      {
+        "device": "ex2",
+        "result": true
+      }
+    ]
+  }
+}
+
+HTTP Method: POST
+HTTP Status Code: 200
+
+############### add_dns_server ###############
+Path: /data
+Data sent:
+{
+  "data": {
+    "dns-config:dns-config": [
+      {
+        "device": "ex1",
+        "dns-server": [
+          {
+            "address": "1.1.1.1"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+Response:
+Added DNS server 1.1.1.1 on ex1
+"No Content Response"
+HTTP Method: PATCH
+HTTP Status Code: 204
+
+############### check_dns_config ###############
+Path: /data/tailf-ncs:devices/device=ex1/config/tailf-ned-cisco-ios:ip/name-server/
+
+Response:
+{
+  "tailf-ned-cisco-ios:name-server": {
+    "name-server-list": [
+      {
+        "address": "1.1.1.1"
+      }
+    ]
+  }
+}
+HTTP Method: GET
+HTTP Status Code: 200
+
+############### DRY-RUN add_dns_server ###############
+Path: /data?dry-run=native
+Data sent:
+{
+  "data": {
+    "dns-config:dns-config": [
+      {
+        "device": "ex1",
+        "dns-server": [
+          {
+            "address": "2.2.2.2"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+Response:
+DRY-RUN DNS server 2.2.2.2 on ex1
+{
+  "dry-run-result": {
+    "native": {
+      "device": [
+        {
+          "name": "ex1",
+          "data": "\nip name-server 2.2.2.2\n"
+        }
+      ]
+    }
+  }
+}
+HTTP Method: PATCH
+HTTP Status Code: 200
+
+############### check_dns_config ###############
+Path: /data/tailf-ncs:devices/device=ex1/config/tailf-ned-cisco-ios:ip/name-server/
+
+Response:
+{
+  "tailf-ned-cisco-ios:name-server": {
+    "name-server-list": [
+      {
+        "address": "1.1.1.1"
+      }
+    ]
+  }
+}
+HTTP Method: GET
+HTTP Status Code: 200
+
+############### add_dns_server ###############
+Path: /data
+Data sent:
+{
+  "data": {
+    "dns-config:dns-config": [
+      {
+        "device": "ex1",
+        "dns-server": [
+          {
+            "address": "2.2.2.2"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+Response:
+Added DNS server 2.2.2.2 on ex1
+"No Content Response"
+HTTP Method: PATCH
+HTTP Status Code: 204
+
+############### check_dns_config ###############
+Path: /data/tailf-ncs:devices/device=ex1/config/tailf-ned-cisco-ios:ip/name-server/
+
+Response:
+{
+  "tailf-ned-cisco-ios:name-server": {
+    "name-server-list": [
+      {
+        "address": "1.1.1.1"
+      },
+      {
+        "address": "2.2.2.2"
+      }
+    ]
+  }
+}
+HTTP Method: GET
+HTTP Status Code: 200
+
+############### list_rollback_files ###############
+Path: /data/tailf-rollback:rollback-files
+
+Response:
+{
+  "tailf-rollback:rollback-files": {
+    "file": [
+      {
+        "id": 0,
+        "name": "rollback10006",
+        "fixed-number": "10006",
+        "creator": "admin",
+        "date": "2023-09-29 14:49:49",
+        "via": "rest"
+      },
+      {
+        "id": 1,
+        "name": "rollback10005",
+        "fixed-number": "10005",
+        "creator": "admin",
+        "date": "2023-09-29 14:49:49",
+        "via": "rest"
+      },
+      {
+        "id": 2,
+        "name": "rollback10004",
+        "fixed-number": "10004",
+        "creator": "admin",
+        "date": "2023-09-29 14:49:49",
+        "via": "rest"
+      },
+      {
+        "id": 3,
+        "name": "rollback10003",
+        "fixed-number": "10003",
+        "creator": "admin",
+        "date": "2023-09-29 14:49:49",
+        "via": "rest"
+      },
+      {
+        "id": 4,
+        "name": "rollback10002",
+        "fixed-number": "10002",
+        "creator": "admin",
+        "date": "2023-09-29 14:49:49",
+        "via": "rest"
+      },
+      {
+        "id": 5,
+        "name": "rollback10001",
+        "fixed-number": "10001",
+        "creator": "system",
+        "date": "2023-09-29 14:48:49",
+        "via": "system"
+      }
+    ]
+  }
+}
+HTTP Method: GET
+HTTP Status Code: 200
+
+############### apply_rollback_file ###############
+Path: /data/tailf-rollback:rollback-files/apply-rollback-file
+Data sent:
+{
+  "input": {
+    "id": 0
+  }
+}
+
+Response:
+Rolled back ID: 0
+"No Content Response"
+HTTP Method: POST
+HTTP Status Code: 204
+
+############### check_dns_config ###############
+Path: /data/tailf-ncs:devices/device=ex1/config/tailf-ned-cisco-ios:ip/name-server/
+
+Response:
+{
+  "tailf-ned-cisco-ios:name-server": {
+    "name-server-list": [
+      {
+        "address": "1.1.1.1"
+      }
+    ]
+  }
+}
+HTTP Method: GET
+HTTP Status Code: 200
+
+############### DRY-RUN add_dns_server ###############
+Path: /data?dry-run=native
+Data sent:
+{
+  "data": {
+    "dns-config:dns-config": [
+      {
+        "device": "ex1",
+        "dns-server": [
+          {
+            "address": "3.3.3.3"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+Response:
+DRY-RUN DNS server 3.3.3.3 on ex1
+{
+  "dry-run-result": {
+    "native": {
+      "device": [
+        {
+          "name": "ex1",
+          "data": "\nip name-server 3.3.3.3\n"
+        }
+      ]
+    }
+  }
+}
+HTTP Method: PATCH
+HTTP Status Code: 200
+
+############### check_dns_config ###############
+Path: /data/tailf-ncs:devices/device=ex1/config/tailf-ned-cisco-ios:ip/name-server/
+
+Response:
+{
+  "tailf-ned-cisco-ios:name-server": {
+    "name-server-list": [
+      {
+        "address": "1.1.1.1"
+      }
+    ]
+  }
+}
+HTTP Method: GET
+HTTP Status Code: 200
+
+############### add_dns_server ###############
+Path: /data
+Data sent:
+{
+  "data": {
+    "dns-config:dns-config": [
+      {
+        "device": "ex1",
+        "dns-server": [
+          {
+            "address": "3.3.3.3"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+Response:
+Added DNS server 3.3.3.3 on ex1
+"No Content Response"
+HTTP Method: PATCH
+HTTP Status Code: 204
+
+############### check_dns_config ###############
+Path: /data/tailf-ncs:devices/device=ex1/config/tailf-ned-cisco-ios:ip/name-server/
+
+Response:
+{
+  "tailf-ned-cisco-ios:name-server": {
+    "name-server-list": [
+      {
+        "address": "1.1.1.1"
+      },
+      {
+        "address": "3.3.3.3"
+      }
+    ]
+  }
+}
+HTTP Method: GET
+HTTP Status Code: 200
+
+developer:src > 
