@@ -6,7 +6,7 @@ This examples uses NSO in local install mode, along with three `netsim` devices 
 
 NSO and netsim are configured automatically using a [Makefile](Makefile).
 
-A simple dns-config template is created to play with this example. This template is created, configured and compiled automatically by the same [Makefile](Makefile).
+A simple dns-config template is created to play with this example. This template is created, configured and compiled automatically by the same [Makefile](Makefile). You can find the template detais under the [dns-config directory](dns-config/)
 
 The only thing you need to do are the steps described below, and then play with the python script.
 
