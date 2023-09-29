@@ -23,6 +23,8 @@ During the execution the script will print the results to the terminal, and disp
 
 You can edit the [main.py](main.py) on the playground to experiment with `ex0` or `ex2` or change the flow of the steps.
 
+Take a look at [script_output.log](script_output.log) to see what the script prints.
+
 ### How the example is built
 
 This example uses NSO in local install mode, along with three `netsim` devices (but only ex1 is used) that work with the IOS example NED.
