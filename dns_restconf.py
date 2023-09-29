@@ -9,7 +9,6 @@ class Dns_handler:
     def list_devices_in_nso(self) -> None:
         path = "/data?fields=tailf-ncs:devices/device(name;address)"
         response = self.http_session.get(path)
-
         print_results(
             {
                 "header": "list_devices_in_nso",
@@ -23,7 +22,6 @@ class Dns_handler:
     def nso_sync_from(self) -> None:
         path = "/operations/tailf-ncs:devices/sync-from"
         response = self.http_session.post(path)
-
         print_results(
             {
                 "header": "nso_sync_from",
@@ -51,7 +49,6 @@ class Dns_handler:
         }
         path = "/data"
         response = self.http_session.patch(path, data)
-
         print_results(
             {
                 "header": "add_dns_server",
@@ -67,7 +64,6 @@ class Dns_handler:
     def list_rollback_files(self) -> None:
         path = "/data/tailf-rollback:rollback-files"
         response = self.http_session.get(path)
-
         print_results(
             {
                 "header": "list_rollback_files",
@@ -82,7 +78,6 @@ class Dns_handler:
         data = {"input": {"id": rollback_id}}
         path = "/data/tailf-rollback:rollback-files/apply-rollback-file"
         response = self.http_session.post(path, data)
-
         print_results(
             {
                 "header": "apply_rollback_file",
@@ -103,7 +98,6 @@ class Dns_handler:
 
         path = f"/data/tailf-ncs:devices/device={device}/config/tailf-ned-cisco-ios:ip/name-server/"
         response = self.http_session.get(path)
-
         print_results(
             {
                 "header": "check_dns_config",
