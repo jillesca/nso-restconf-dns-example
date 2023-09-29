@@ -71,13 +71,11 @@ pip install -r $REPO_DIR/requirements.txt
 
 ### Build the environment
 
-Build the environment.
-
 ```bash
 make -C $REPO_DIR build
 ```
 
-Everytime you build the environment, first it stops netsim & ncs, then it wipes out any existing environment (`$NCS_RUN_DIR`). This is useful to start from scratch when experimenting.
+Everytime you build the environment, netsim & ncs are stopped, then the any existing environment (`$NCS_RUN_DIR`) is deleted. This is useful to start from scratch everytime when experimenting.
 
 ### Run example
 
@@ -102,6 +100,7 @@ make -C $REPO_DIR clean
 This is useful when developing to find the Restconf URL or JSON payload you need to use.
 
 ```bash
+ncs_cli -Cu admin
 devices sync-from
 config
 dns-config ex0 dns-server 1.1.1.1
@@ -110,14 +109,14 @@ dns-config ex1 dns-server 1.1.1.1
 dns-config ex2 dns-server 5.5.5.5
 ```
 
-See what NSO will send to the devices.
+See what NSO will send to the devices. Commit and exit the configuration mode.
 
 ```bash
 commit dry-run
 commit and-quit
 ```
 
-Verify config was applied on the devices.
+In NSO verify config was applied on the devices.
 
 ```bash
 show running-config devices device * config ip name-server
