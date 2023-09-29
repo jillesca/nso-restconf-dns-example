@@ -10,18 +10,21 @@ class Response:
 
 
 class Session_handler:
-    def __init__(self, username: str, password: str, base_url: str):
+    def __init__(
+        self, username: str, password: str, base_url: str, verify: bool = False
+    ):
+        self.verify = verify
         self._username = username
         self._password = password
         self._base_url = base_url
-        self._create_restconf_session()
+        self.session = self._create_session()
 
-    def _create_restconf_session(self):
+    def _create_session(self) -> requests.session:
         session = requests.session()
         session.auth = HTTPBasicAuth(self._username, self._password)
         session.headers.update({"Content-Type": "application/yang-data+json"})
-        session.verify = False
-        self.session = session
+        session.verify = self.verify
+        return session
 
     def _handle_204(self, response: requests.Response) -> tuple[str, str]:
         if response.status_code == 204:
@@ -37,6 +40,7 @@ class Session_handler:
             return Response(text, response.status_code, json)
         except Exception as err:
             print(f"{err=}")
+            return Response(text=err, status_code=response.status_code, json=err)
 
     def get(self, path: str) -> Response:
         return self._send_request("get", path)

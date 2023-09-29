@@ -1,7 +1,3 @@
-#!/usr/bin/env python3
-
-# import ncs
-import requests
 from print_terminal import (
     print_ok_green,
     print_ok_blue,
@@ -9,11 +5,12 @@ from print_terminal import (
     print_purple,
     print_json,
 )
+from http_request import Session_handler
 
 
 class Dns_handler:
-    def __init__(self, http_session: requests.session):
-        self.http_session = http_session
+    def __init__(self, username: str, password: str, base_url: str):
+        self.http_session = Session_handler(username, password, base_url)
 
     def list_devices_in_nso(self) -> None:
         path = "/data?fields=tailf-ncs:devices/device(name;address)"
