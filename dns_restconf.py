@@ -32,9 +32,7 @@ class DnsHandler:
             }
         )
 
-    def add_dns_server(
-        self, device: str, dns_server: str, dry_run: bool = False
-    ) -> None:
+    def dry_run_add_dns_server(self, device: str, dns_server: str) -> None:
         """
         To get the data payload, add first an example manually,
         commit it and then use 'display json' as below
@@ -49,13 +47,42 @@ class DnsHandler:
                 ]
             }
         }
-        path = "/data?dry-run=native" if dry_run else "/data"
+        path = "/data?dry-run=native"
         response = self._http_session.patch(path, data)
         print_results(
             {
-                "header": "DRY-RUN add_dns_server" if dry_run else "add_dns_server",
+                "header": "DRY-RUN add_dns_server",
                 "data": data,
-                "body": f"{'DRY-RUN'if dry_run else 'Added'} DNS server {dns_server} on {device}",
+                "body": f"DRY-RUN DNS server {dns_server} on {device}",
+                "json": response.json,
+                "method": "PATCH",
+                "path": path,
+                "code": response.status_code,
+            }
+        )
+
+    def add_dns_server(self, device: str, dns_server: str) -> None:
+        """
+        To get the data payload, add first an example manually,
+        commit it and then use 'display json' as below
+
+        show running-config dns-config ex1 | display json
+        """
+
+        data = {
+            "data": {
+                "dns-config:dns-config": [
+                    {"device": device, "dns-server": [{"address": dns_server}]}
+                ]
+            }
+        }
+        path = "/data"
+        response = self._http_session.patch(path, data)
+        print_results(
+            {
+                "header": "add_dns_server",
+                "data": data,
+                "body": f"Added DNS server {dns_server} on {device}",
                 "json": response.json,
                 "method": "PATCH",
                 "path": path,
