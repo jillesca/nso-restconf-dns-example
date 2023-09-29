@@ -3,7 +3,7 @@ from http_request import SessionHandler
 
 
 class DnsHandler:
-    def __init__(self, username: str, password: str, base_url: str):
+    def __init__(self, username: str, password: str, base_url: str) -> None:
         self._http_session = SessionHandler(username, password, base_url)
 
     def list_devices_in_nso(self) -> None:

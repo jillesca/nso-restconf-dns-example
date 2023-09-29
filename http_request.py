@@ -3,7 +3,7 @@ from requests.auth import HTTPBasicAuth
 
 
 class Response:
-    def __init__(self, text: str, status_code: int, json: dict):
+    def __init__(self, text: str, status_code: int, json: dict) -> None:
         self.text = text
         self.status_code = status_code
         self.json = json
@@ -12,7 +12,7 @@ class Response:
 class SessionHandler:
     def __init__(
         self, username: str, password: str, base_url: str, verify: bool = False
-    ):
+    ) -> None:
         self.verify = verify
         self._username = username
         self._password = password
