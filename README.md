@@ -75,7 +75,7 @@ pip install -r $REPO_DIR/requirements.txt
 make -C $REPO_DIR build
 ```
 
-Everytime you build the environment, netsim & ncs are stopped, then the any existing environment (`$NCS_RUN_DIR`) is deleted. This is useful to start from scratch everytime when experimenting.
+Everytime you build the environment, netsim & ncs are stopped, then the environment on `$NCS_RUN_DIR` is deleted. This is useful to start from scratch everytime when experimenting.
 
 ### Run example
 
