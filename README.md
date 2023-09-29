@@ -2,7 +2,7 @@
 
 This example shows how you can interact with NSO through Restconf APIs using the `requests` python library.
 
-The example is designed to be executed on the NSO Playground but any local install will work as long as the specific environmentvariables are set.
+The example is designed to be executed on the NSO Playground but any local install will work as long as the specific environment variables are set.
 
 If you don't know what the NSO playground is, take a look at these links
 
@@ -30,7 +30,7 @@ During the execution the script will print the results to the terminal, and disp
 
 You can edit the [main.py](main.py) on the playground to experiment with `ex0` or `ex2` or change the flow of the steps.
 
-Take a look at [script_outpiut.log](script_output.log) to see what the script prints.
+Take a look at [script_output.log](script_output.log) to see what the script prints.
 
 ### How the example is built
 
@@ -63,7 +63,7 @@ source $NCS_DIR/ncsrc
 
 ### Install dependencies
 
-The playground already has the requirements ready, run this if you are using your own environment.
+The playground already has the requirements installed, run this command if you are using your own environment.
 
 ```bash
 pip install -r $REPO_DIR/requirements.txt
@@ -76,6 +76,8 @@ Build the environment.
 ```bash
 make -C $REPO_DIR build
 ```
+
+Everytime you build the environment, first it stops netsim & ncs, then it wipes out any existing environment (`$NCS_RUN_DIR`). This is useful to start from scratch when experimenting.
 
 ### Run example
 
