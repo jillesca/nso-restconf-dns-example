@@ -2,6 +2,14 @@
 
 This example shows how you can interact with NSO through Restconf APIs using the `requests` python library.
 
+This examples uses NSO in local install mode, along with three `netsim` devices (but only one is really used) that work with the IOS example NED.
+
+NSO and netsim are configured automatically using a [Makefile](Makefile).
+
+A simple dns-config template is created to play with this example. This template is created, configured and compiled automatically by the same [Makefile](Makefile).
+
+The only thing you need to do are the steps described below, and then play with the python script.
+
 This example is based on: `$NCS_DIR/examples.ncs/development-guide/basic-automation/showcase_rc.py`
 
 ### Setup environment variables
