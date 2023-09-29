@@ -15,6 +15,8 @@ export NCS_RUN_DIR=~/nso-lab-rundir
 export REPO_DIR=~/src/nso-restconf-dns-example
 ```
 
+The [Makefile](Makefile) checks all the environment variables are set, any env var missing will cause the Makefile to fail.
+
 Source the `ncsrc` file.
 
 ```bash
