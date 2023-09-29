@@ -14,16 +14,14 @@ This example is based on: `$NCS_DIR/examples.ncs/development-guide/basic-automat
 
 ### Setup environment variables
 
-Set environment variables required.
-
 > if you run this example outside of the playground, make sure `$NCS_DIR` points to the NSO directory. Adjust `NCS_RUN_DIR` and `$REPO_DIR` to your environment.
+
+The [Makefile](Makefile) checks all the environment variables are set, any env var missing will cause the Makefile to fail.
 
 ```bash
 export NCS_RUN_DIR=~/nso-lab-rundir
 export REPO_DIR=~/src/nso-restconf-dns-example
 ```
-
-The [Makefile](Makefile) checks all the environment variables are set, any env var missing will cause the Makefile to fail.
 
 Source the `ncsrc` file.
 
