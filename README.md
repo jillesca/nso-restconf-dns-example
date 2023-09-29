@@ -1,6 +1,26 @@
 # NSO Restconf - DNS Example
 
-Simple DNS example showing how to interact with NSO using Restconf APIs.
+On this example you will interact with NSO through Restconf APIs using the `requests` python library.
+
+This example is based on `showcase_rc.py`
+
+```bash
+$NCS_DIR/examples.ncs/development-guide/basic-automation/showcase_rc.py
+```
+
+> Tip: do you know that `rc` in the filename of the examples stands for **restconf**?
+
+To find more builtin restconf examples do
+
+```bash
+find $NCS_DIR/examples.ncs/ -type f -name "showcase_rc.py"
+```
+
+### Install dependencies
+
+```bash
+pip install -r $REPO_DIR/requirements.txt
+```
 
 ### Setup example
 
@@ -21,12 +41,6 @@ Build the environment
 
 ```bash
 make -C $REPO_DIR build
-```
-
-Install python dependencies
-
-```bash
-pip install -r $REPO_DIR/requirements.txt
 ```
 
 ### Run example
