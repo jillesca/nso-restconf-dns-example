@@ -8,39 +8,37 @@ ENDC = "\033[0m"
 
 
 def print_results(data: dict) -> None:
-    print_header(data.get("header", ""))
-    print(f'Path: {data.get("path", "")}')
+    result = ""
+    result += print_header(data.get("header", ""))
+    result += f'Path: {data.get("path", "")}\n'
     if "data" in data:
-        print("Data sent:")
-        print_json(data.get("data", ""))
-    print("\nResponse:")
+        result += "Data sent:\n"
+        result += print_json(data.get("data", ""))
+    result += "\nResponse:\n"
     if "body" in data:
-        print_blue(data.get("body", ""))
+        result += print_blue(data.get("body", ""))
     if "json" in data:
-        print_json(data.get("json", ""))
-    print_purple(f'HTTP Method: {data.get("method", "").upper()}')
-    print_purple(f'HTTP Status Code: {data.get("code", "")}')
+        result += print_json(data.get("json", ""))
+    result += print_purple(f'HTTP Method: {data.get("method", "").upper()}')
+    result += print_purple(f'HTTP Status Code: {data.get("code", "")}')
+    print(result)
 
 
-def print_green(msg: str) -> None:
-    print(f"{OKGREEN}{msg}{ENDC}")
+def print_green(msg: str) -> str:
+    return f"{OKGREEN}{msg}{ENDC}\n"
 
 
-def print_blue(msg: str) -> None:
-    print(f"{OKBLUE}{msg}{ENDC}")
+def print_blue(msg: str) -> str:
+    return f"{OKBLUE}{msg}{ENDC}\n"
 
 
-def print_header(msg: str) -> None:
-    print_bold(f"{'#' * 15} {msg} {'#' * 15}")
+def print_header(msg: str) -> str:
+    return f"{BOLD}{'#' * 15} {msg} {'#' * 15}{ENDC}\n"
 
 
-def print_bold(msg: str) -> None:
-    print(f"{BOLD}{msg}{ENDC}")
+def print_purple(msg: str) -> str:
+    return f"{PURPLE}{msg}{ENDC}\n"
 
 
-def print_purple(msg: str) -> None:
-    print(f"{PURPLE}{msg}{ENDC}")
-
-
-def print_json(msg: str) -> None:
-    print_green(json.dumps(msg, indent=2))
+def print_json(msg: str) -> str:
+    return print_green(json.dumps(msg, indent=2))

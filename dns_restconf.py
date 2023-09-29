@@ -4,11 +4,11 @@ from http_request import SessionHandler
 
 class DnsHandler:
     def __init__(self, username: str, password: str, base_url: str):
-        self.http_session = SessionHandler(username, password, base_url)
+        self._http_session = SessionHandler(username, password, base_url)
 
     def list_devices_in_nso(self) -> None:
         path = "/data?fields=tailf-ncs:devices/device(name;address)"
-        response = self.http_session.get(path)
+        response = self._http_session.get(path)
         print_results(
             {
                 "header": "list_devices_in_nso",
@@ -21,7 +21,7 @@ class DnsHandler:
 
     def nso_sync_from(self) -> None:
         path = "/operations/tailf-ncs:devices/sync-from"
-        response = self.http_session.post(path)
+        response = self._http_session.post(path)
         print_results(
             {
                 "header": "nso_sync_from",
@@ -48,7 +48,7 @@ class DnsHandler:
             }
         }
         path = "/data"
-        response = self.http_session.patch(path, data)
+        response = self._http_session.patch(path, data)
         print_results(
             {
                 "header": "add_dns_server",
@@ -63,7 +63,7 @@ class DnsHandler:
 
     def list_rollback_files(self) -> None:
         path = "/data/tailf-rollback:rollback-files"
-        response = self.http_session.get(path)
+        response = self._http_session.get(path)
         print_results(
             {
                 "header": "list_rollback_files",
@@ -77,7 +77,7 @@ class DnsHandler:
     def apply_rollback_file(self, rollback_id: int) -> None:
         data = {"input": {"id": rollback_id}}
         path = "/data/tailf-rollback:rollback-files/apply-rollback-file"
-        response = self.http_session.post(path, data)
+        response = self._http_session.post(path, data)
         print_results(
             {
                 "header": "apply_rollback_file",
@@ -97,7 +97,7 @@ class DnsHandler:
         """
 
         path = f"/data/tailf-ncs:devices/device={device}/config/tailf-ned-cisco-ios:ip/name-server/"
-        response = self.http_session.get(path)
+        response = self._http_session.get(path)
         print_results(
             {
                 "header": "check_dns_config",
@@ -111,5 +111,5 @@ class DnsHandler:
     def dry_run_dns_config(self) -> None:
         data = {"router:server": [{"address": "192.0.2.2"}]}
         path = "/data/tailf-ncs:devices/device=ex1/config/router:sys/dns/server?dry-run"
-        response = self.http_session.patch(path, data)
+        response = self._http_session.patch(path, data)
         print(response)
