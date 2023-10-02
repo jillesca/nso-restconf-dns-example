@@ -1,13 +1,18 @@
+[![Run in Cisco Cloud IDE](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-runable-icon.svg)](https://developer.cisco.com/codeexchange/devenv/jillesca/nso-restconf-dns-example/)
+
 # NSO Restconf - DNS Example
 
 This example shows how you can interact with NSO through Restconf APIs using the `requests` python library.
 
-The example is designed to be executed on the NSO Playground but any local install will work as long as the specific environment variables are set.
+The example is designed to be executed on the [NSO Playground](https://github.com/CiscoDevNet/NSO-Playground-Local-Install) but any local install will work as long as the specific environment variables are set.
 
-If you don't know what the NSO playground is, take a look at these links
+To start experimenting with the example you can:
 
-- <https://github.com/CiscoDevNet/NSO-Playground-Local-Install>
-- <https://github.com/CiscoDevNet/NSO-Playground-System-Install>
+- Click on the "Cisco Cloud IDE Run it!" button at the top of the README file
+- [Click here](https://developer.cisco.com/codeexchange/devenv/jillesca/nso-restconf-dns-example/) to open an environment on Cloud IDE.
+- Go to [the repo in Cisco Code Exchange](https://developer.cisco.com/codeexchange/github/repo/jillesca/nso-restconf-dns-example/) and click on "Run in Cloud IDE" on the left side of the repository name.
+
+The example will be automatically cloned on the playground, ready to test.
 
 ### What the script does
 
