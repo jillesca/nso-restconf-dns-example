@@ -14,7 +14,7 @@ To start experimenting with the example you can:
 
 The example will be automatically cloned on the playground, ready to test.
 
-Once the playground is ready you can skip to the [Build the environment part](# Build the environment). When you run the `make -C $REPO_DIR build` command, it will both create netsims and spin up the NSO instance. 
+Once the playground is ready you can skip to the **Build the environment** part. When you run the `make -C $REPO_DIR build` command, it will both create netsims and spin up the NSO instance. 
 
 ### What the script does
 
