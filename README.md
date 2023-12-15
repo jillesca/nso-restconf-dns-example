@@ -14,6 +14,8 @@ To start experimenting with the example you can:
 
 The example will be automatically cloned on the playground, ready to test.
 
+Once the playground is ready you can skip to the **Build the environment** part. When you run the `make -C $REPO_DIR build` command, it will both create netsims and spin up the NSO instance. 
+
 ### What the script does
 
 The script updates the DNS server configuration of a netsim device using the yang model and template created for this example. The outputs of the calls are printed to the terminal.
