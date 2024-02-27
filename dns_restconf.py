@@ -19,6 +19,19 @@ class DnsHandler:
             }
         )
 
+    def nso_sync_from_single_device(self, device: str) -> None:
+        path = f"/operations/tailf-ncs:devices/device={device}/sync-from"
+        response = self._http_session.post(path)
+        print_results(
+            {
+                "header": "nso_sync_from",
+                "body": response.text,
+                "path": path,
+                "method": "POST",
+                "code": response.status_code,
+            }
+        )
+
     def nso_sync_from(self) -> None:
         path = "/operations/tailf-ncs:devices/sync-from"
         response = self._http_session.post(path)
