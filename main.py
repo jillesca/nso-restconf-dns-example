@@ -8,6 +8,7 @@ BASE_URL = "http://localhost:8080/restconf"
 def main() -> None:
     restconf = DnsHandler(USERNAME, PASSWORD, BASE_URL)
     restconf.list_devices_in_nso()
+    restconf.nso_sync_from_single_device(device="ex1")
     restconf.nso_sync_from()
     restconf.add_dns_server(device="ex1", dns_server="1.1.1.1")
     restconf.check_dns_config(device="ex1")
