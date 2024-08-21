@@ -14,7 +14,7 @@ To start experimenting with the example you can:
 
 The example will be automatically cloned on the playground, ready to test.
 
-Once the playground is ready you can skip to the **Build the environment** part. When you run the `make -C $REPO_DIR build` command, it will both create netsims and spin up the NSO instance. 
+Once the playground is ready you can skip to the **Build the environment** part. When you run the `make -C $REPO_DIR build` command, it will both create netsims and spin up the NSO instance.
 
 ### What the script does
 
@@ -50,6 +50,12 @@ A simple dns-config template is created to experiment with this example. This te
 The only thing you need to do are the steps described below, and then play with the python script.
 
 This example is based on: `$NCS_DIR/examples.ncs/development-guide/basic-automation/showcase_rc.py`
+
+### Jupyter Notebook
+
+For a step-by-step guide, use the [README Jupyter Notebook](README.ipynb) where you can easily see the `REST` operations, paths and payloads used.
+
+The rest of the instructions below are the same to what you find on the jupyter notebook.
 
 ### Setup environment variables
 
