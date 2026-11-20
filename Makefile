@@ -11,7 +11,7 @@ build:
 	$(MAKE) start
 
 netsim:
-	ncs-netsim --dir ${NCS_RUN_DIR}/netsim create-network ${NCS_DIR}/packages/neds/cisco-ios-cli-3.8 3 ex
+	ncs-netsim --dir ${NCS_RUN_DIR}/netsim create-network ${NCS_DIR}/examples.ncs/common/packages/cisco-ios-netsim-cli-1.0 3 ex
 
 setup:
 	ncs-setup --dest ${NCS_RUN_DIR} --netsim-dir ${NCS_RUN_DIR}/netsim

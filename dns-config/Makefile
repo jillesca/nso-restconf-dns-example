@@ -11,7 +11,7 @@ FXS = $(SRC:yang/%.yang=../load-dir/%.fxs)
 ##
 ## YANGPATH edited to add NED required for the example
 ##
-YANGPATH += ../../cisco-ios-cli-3.8/src/ncsc-out/modules/yang
+YANGPATH += ../../cisco-ios-netsim-cli-1.0/src/ncsc-out/modules/yang
 
 NCSCPATH   = $(YANGPATH:%=--yangpath %)
 YANGERPATH = $(YANGPATH:%=--path %)
